@@ -53,7 +53,7 @@ buttArray.forEach((button) =>{
         console.log("You Lose Scissors beats paper!")
         computerScore+=1;
     }
-    else if((humanChoice==="Scissors" && computerChoice==="rock")){
+    else if((humanChoice==="Scissors" && computerChoice==="Rock")){
         console.log("You Lose rock beats Scissors!")
         computerScore+=1;
     }
