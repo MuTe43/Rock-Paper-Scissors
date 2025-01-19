@@ -1,6 +1,11 @@
+const choice = document.querySelectorAll(".player1");
+const playerScore = document.querySelector(".playerScore");
+const compScore = document.querySelector(".compScore");
+const result = document.querySelector(".result")
+const buttArray = Array.from(choice);
 function getComputerChoice(){
-    choice = Math.floor(Math.random()*3);
-    switch(choice){
+    compChoice = Math.floor(Math.random()*3);
+    switch(compChoice){
         case 0:
             return "Rock";
         case 1:
@@ -10,16 +15,16 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    let a = prompt("Choose, Rock, Paper or Scissors?");
-    a.toLowerCase();
-    while (a!=="rock" && a!=="paper" && a!=="scissors"){
-        console.log("Invalid Choice try again!")
-        a = prompt("Choose, Rock, Paper or Scissors?");
-        a.toLowerCase();
-    }
-    return a;
-}
+// function getHumanChoice(){
+//     let a = prompt("Choose, Rock, Paper or Scissors?");
+//     a.toLowerCase();
+//     while (a!=="rock" && a!=="paper" && a!=="scissors"){
+//         console.log("Invalid Choice try again!")
+//         a = prompt("Choose, Rock, Paper or Scissors?");
+//         a.toLowerCase();
+//     }
+//     return a;
+// }
 
 let humanScore=0;
 let computerScore=0;
@@ -29,9 +34,12 @@ function isDraw(humanChoice, computerChoice){
         console.log("Draw!")
 
     }
-}
-
-function playRound(humanChoice, computerChoice){
+};
+buttArray.forEach((button) =>{
+    button.addEventListener('click', (humanChoice) => {
+    result.textContent="";
+    computerChoice = getComputerChoice();
+    humanChoice = humanChoice.target.value;
     if(humanChoice===computerChoice.toLowerCase()){
         console.log("Draw!")
         computerScore+=1;
@@ -53,16 +61,32 @@ function playRound(humanChoice, computerChoice){
         console.log(`You Win! ${humanChoice} beats ${computerChoice}`)
         humanScore+=1;
     }
-}
-
-
-function playGame(){
-    for(let i=0; i<5; i++){
-        let a = getHumanChoice();
-        let b = getComputerChoice();
-        playRound(a,b)
+    playerScore.textContent = "Player Score: " + humanScore;
+    compScore.textContent= "Computer Score: " + computerScore;
+    if(humanScore === 5){
+        result.textContent= "Player wins!"
+        humanScore=0;
+        computerScore=0;
+        playerScore.textContent = "Player Score: " + humanScore;
+        compScore.textContent= "Computer Score: " + computerScore;
+    }else if (computerScore === 5){
+        result.textContent= "Computer wins!"
+        humanScore=0;
+        computerScore=0;
+        playerScore.textContent = "Player Score: " + humanScore;
+        compScore.textContent= "Computer Score: " + computerScore;
     }
-    return (humanScore>computerScore) ? console.log("You Win!") : console.log("Computer Wins!");
-}
+        
+})
+})
 
-playGame()
+// function playGame(){
+//     for(let i=0; i<5; i++){
+//         let a = getHumanChoice();
+//         let b = getComputerChoice();
+//         playRound(a,b)
+//     }
+//     return (humanScore>computerScore) ? console.log("You Win!") : console.log("Computer Wins!");
+// }
+
+// playGame()
